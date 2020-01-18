@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 
-from DAO import _Employees, _Suppliers, _Products, _CoffeeStands, _Activities
+from DAO import _Employees, _Suppliers, _Products, _CoffeeStands
 from DTO import *
 
 DB_FILE_NAME = "moncafe.db"
@@ -39,18 +39,21 @@ def fill_tables(cursor, config_file):
     suppliers = _Suppliers(cursor)
     products = _Products(cursor)
     coffee_stands = _CoffeeStands(cursor)
-    activities = _Activities(cursor)
     with open(config_file, "r") as f:
         for line in f.readlines():
             args = line.split(',')
-            type = args.pop(0).strip()
-            if type == "E":
+            args = [arg.strip() for arg in args]  # strip any spaces from the line
+            table_type = args.pop(0)
+            if table_type == "E":
                 employee = Employee(*args)
                 employees.insert(employee)
-            elif type == "S":
+            elif table_type == "S":
                 supplier = Supplier(*args)
                 suppliers.insert(supplier)
-            else:  # type == "C", valid file assuemed
+            elif table_type == "P":
+                product = Product(*args)
+                products.insert(product)
+            else:  # table_type == "C", valid file assumed, activity is not initialized
                 coffee_stand = CoffeeStand(*args)
                 coffee_stands.insert(coffee_stand)
 
@@ -67,4 +70,6 @@ def main(config_file):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        raise ValueError("uasge - initiate.py config.txt")
     main(sys.argv[1])

@@ -25,7 +25,7 @@ class _Products:
     def insert(self, product):
         self._cursor.execute("""
             INSERT INTO products (id, description, price, quantity) VALUES (?, ?, ?, ?)
-        """, [product.id, product.description, product.price, product.quantity])
+        """, [product.product_id, product.description, product.price, product.quantity])
 
 
 class _CoffeeStands:

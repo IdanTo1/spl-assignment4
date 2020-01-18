@@ -14,11 +14,11 @@ class Supplier:
 
 
 class Product:
-    def __init__(self, product_id, description, price, quantity):
+    def __init__(self, product_id, description, price):
         self.product_id = product_id
         self.description = description
         self.price = price
-        self.quantity = quantity
+        self.quantity = 0
 
 
 class CoffeeStand:
