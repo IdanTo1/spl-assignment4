@@ -4,8 +4,6 @@ import sys
 from DAO import _Employees, _Suppliers, _Products, _CoffeeStands
 from DTO import *
 
-DB_FILE_NAME = "moncafe.db"
-
 
 def create_tables(cursor):
     cursor.execute("""CREATE TABLE Employees(id INTEGER PRIMARY KEY,

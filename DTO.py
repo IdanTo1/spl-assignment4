@@ -1,3 +1,6 @@
+DB_FILE_NAME = "moncafe.db"
+
+
 class Employee:
     def __init__(self, employee_id, name, salary, coffee_stand):
         self.id = employee_id
