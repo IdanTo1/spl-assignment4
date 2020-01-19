@@ -9,7 +9,7 @@ class _Employees:
 
     def print_table(self):
         print("Employees")
-        self._cursor.execute("SELECT * FROM Employees ORDER BY Employees.id ASC")
+        self._cursor.execute("SELECT * FROM Employees ORDER BY Employees.id")
         all_data = self._cursor.fetchall()
         for one in all_data:
             print(one)
@@ -26,7 +26,7 @@ class _Suppliers:
 
     def print_table(self):
         print("Suppliers")
-        self._cursor.execute("SELECT * FROM Suppliers ORDER BY Suppliers.id ASC")
+        self._cursor.execute("SELECT * FROM Suppliers ORDER BY Suppliers.id")
         all_data = self._cursor.fetchall()
         for one in all_data:
             print(one)
@@ -43,10 +43,20 @@ class _Products:
 
     def print_table(self):
         print("Products")
-        self._cursor.execute("SELECT * FROM Products ORDER BY Products.id ASC")
+        self._cursor.execute("SELECT * FROM Products ORDER BY Products.id")
         all_data = self._cursor.fetchall()
         for one in all_data:
             print(one)
+
+    def update(self, product_id, quantity):
+        self._cursor.execute("""UPDATE Products SET quantity = quantity + ?
+        WHERE id = ?""", [quantity, product_id])
+
+    def get_quantity(self, product_id):
+        self._cursor.execute("""SELECT quantity FROM Products
+                    WHERE id = ?
+                    """, [product_id])
+        return int(self._cursor.fetchone()[0])
 
 
 class _CoffeeStands:
@@ -60,7 +70,7 @@ class _CoffeeStands:
 
     def print_table(self):
         print("Coffee stands")
-        self._cursor.execute("SELECT * FROM Coffee_stands ORDER BY Coffee_stands.id ASC")
+        self._cursor.execute("SELECT * FROM Coffee_stands ORDER BY Coffee_stands.id")
         all_data = self._cursor.fetchall()
         for one in all_data:
             print(one)
@@ -77,7 +87,7 @@ class _Activities:
 
     def print_table(self):
         print("Activities")
-        self._cursor.execute("SELECT * FROM Activities ORDER BY Activities.date ASC")
+        self._cursor.execute("SELECT * FROM Activities ORDER BY Activities.date")
         all_data = self._cursor.fetchall()
         for one in all_data:
             print(one)
