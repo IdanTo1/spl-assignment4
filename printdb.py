@@ -47,32 +47,22 @@ def print_activities_report(cursor):
         print(one)
 
 
-def main():
+def main(cursor):
+    _Activities(cursor).print_table()
+    _CoffeeStands(cursor).print_table()
+    _Employees(cursor).print_table()
+    _Products(cursor).print_table()
+    _Suppliers(cursor).print_table()
+    print()
+    print_employees_report(cursor)
+    print()
+    print_activities_report(cursor)
+
+
+if __name__ == "__main__":
     db_exists = os.path.isfile(DB_FILE_NAME)
     if not db_exists:
         raise FileNotFoundError(("data base %s does not exists" % DB_FILE_NAME))
     db_conn = sqlite3.connect(DB_FILE_NAME)
     db_cursor = db_conn.cursor()
-
-    db_cursor.execute("""INSERT INTO Activities (product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
-                """, [9004, 100, 102, 20001010])
-    db_cursor.execute("""INSERT INTO Activities (product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
-        """, [9002, 10, 1004, 20001010])
-    db_cursor.execute("""INSERT INTO Activities (product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
-            """, [9002, 30, 1004, 20001011])
-    db_cursor.execute("""INSERT INTO Activities (product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
-            """, [9004, 20, 1003, 20001010])
-
-    _Activities(db_cursor).print_table()
-    _CoffeeStands(db_cursor).print_table()
-    _Employees(db_cursor).print_table()
-    _Products(db_cursor).print_table()
-    _Suppliers(db_cursor).print_table()
-    print()
-    print_employees_report(db_cursor)
-    print()
-    print_activities_report(db_cursor)
-
-
-if __name__ == "__main__":
-    main()
+    main(db_cursor)
