@@ -69,5 +69,5 @@ def main(config_file):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        raise ValueError("uasge - initiate.py config.txt")
+        raise ValueError("usage - initiate.py config.txt")
     main(sys.argv[1])
