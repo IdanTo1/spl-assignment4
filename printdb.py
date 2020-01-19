@@ -7,27 +7,20 @@ from DTO import *
 
 def print_employees_report(cursor):
     print("Employees report")
-    cursor.execute("""SELECT emp.name, emp.salary, cs.location, sum(prod.price * act.quantity)
+    cursor.execute("""SELECT emp.name, emp.salary, cs.location, sum(ifnull(abs(prod.price * act.quantity), 0))
     FROM ((Employees AS emp
     INNER JOIN Coffee_stands AS cs 
     ON emp.coffee_stand = cs.id)
     LEFT OUTER JOIN (Activities AS act
     INNER JOIN Products AS prod ON act.product_id = prod.id)
     ON act.activator_id = emp.id)
-    GROUP BY emp.id
+    GROUP BY emp.id, emp.name
+    ORDER BY emp.name 
     """)
 
     all_data = cursor.fetchall()
     for one in all_data:
         print(*one)
-
-
-# , sum(prod.price * act.quantity)
-# LEFT OUTER JOIN (Activities AS act
-#     INNER JOIN Products as prod on act.product_id = prod.id)
-#     ON emp.id = act.activator_id)
-#   ON emp.id = act.activator_id
-#   ORDER BY emp.name ASC
 
 
 def print_activities_report(cursor):
@@ -40,7 +33,7 @@ def print_activities_report(cursor):
     ON act.activator_id = emp.id)
     LEFT OUTER JOIN Suppliers AS supp
     ON act.activator_id = supp.id
-    ORDER BY act.date ASC
+    ORDER BY act.date
     """)
     all_data = cursor.fetchall()
     for one in all_data:
