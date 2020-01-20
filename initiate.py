@@ -65,6 +65,7 @@ def main(config_file):
     fill_tables(db_cursor, config_file)
 
     db_conn.commit()
+    db_conn.close()
 
 
 if __name__ == "__main__":

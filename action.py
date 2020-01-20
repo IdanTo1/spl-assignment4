@@ -19,7 +19,9 @@ def main(actions_file):
             if new_quantity >= 0:
                 _Activities(db_cursor).insert(activity)
                 _Products(db_cursor).update(activity.product_id, activity.quantity)
+    db_conn.commit()
     printdb.main(db_cursor)
+    db_conn.close()
 
 
 if __name__ == "__main__":

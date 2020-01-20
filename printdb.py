@@ -59,3 +59,4 @@ if __name__ == "__main__":
     db_conn = sqlite3.connect(DB_FILE_NAME)
     db_cursor = db_conn.cursor()
     main(db_cursor)
+    db_conn.close()
