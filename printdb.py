@@ -17,13 +17,24 @@ def print_activities_report():
         print(one)
 
 
+def print_table(dao):
+    all_data = dao.fetch_table()
+    for one in all_data:
+        print(one)
+
+
 def main():
     # multiple reads because no generic read is possible
-    repo.activities.print_table()
-    repo.coffee_stands.print_table()
-    repo.employees.print_table()
-    repo.products.print_table()
-    repo.suppliers.print_table()
+    print("Activities")
+    print_table(repo.activities)
+    print("Coffee stand")
+    print_table(repo.coffee_stands)
+    print("Employees")
+    print_table(repo.employees)
+    print("Products")
+    print_table(repo.products)
+    print("Suppliers")
+    print_table(repo.suppliers)
     print()  # blank line between tables and reports
     print_employees_report()
     print()  # blank line between reports
