@@ -27,7 +27,7 @@ def main():
     # multiple reads because no generic read is possible
     print("Activities")
     print_table(repo.activities)
-    print("Coffee stand")
+    print("Coffee stands")
     print_table(repo.coffee_stands)
     print("Employees")
     print_table(repo.employees)
