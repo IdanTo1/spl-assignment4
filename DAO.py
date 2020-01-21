@@ -1,8 +1,10 @@
 class _Employees:
-    def __init__(self, cursor):
-        self._cursor = cursor
+    def __init__(self, conn):
+        self._conn = conn
+        self._cursor = self._conn.cursor()
 
     def insert(self, employee):
+        cursor = self._conn.cursor()
         self._cursor.execute("""
             INSERT INTO Employees (id, name, salary, coffee_stand) VALUES (?, ?, ?, ?)
         """, [employee.id, employee.name, employee.salary, employee.coffee_stand])
@@ -16,8 +18,9 @@ class _Employees:
 
 
 class _Suppliers:
-    def __init__(self, cursor):
-        self._cursor = cursor
+    def __init__(self, conn):
+        self._conn = conn
+        self._cursor = self._conn.cursor()
 
     def insert(self, supplier):
         self._cursor.execute("""
@@ -33,8 +36,9 @@ class _Suppliers:
 
 
 class _Products:
-    def __init__(self, cursor):
-        self._cursor = cursor
+    def __init__(self, conn):
+        self._conn = conn
+        self._cursor = self._conn.cursor()
 
     def insert(self, product):
         self._cursor.execute("""
@@ -60,8 +64,9 @@ class _Products:
 
 
 class _CoffeeStands:
-    def __init__(self, cursor):
-        self._cursor = cursor
+    def __init__(self, conn):
+        self._conn = conn
+        self._cursor = self._conn.cursor()
 
     def insert(self, coffee_stand):
         self._cursor.execute("""
@@ -77,8 +82,9 @@ class _CoffeeStands:
 
 
 class _Activities:
-    def __init__(self, cursor):
-        self._cursor = cursor
+    def __init__(self, conn):
+        self._conn = conn
+        self._cursor = self._conn.cursor()
 
     def insert(self, activity):
         self._cursor.execute("""
