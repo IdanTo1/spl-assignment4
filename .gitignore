@@ -130,5 +130,4 @@ dmypy.json
 
 #project files
 .idea/
-*.txt
 *.db
