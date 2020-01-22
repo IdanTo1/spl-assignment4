@@ -8,13 +8,20 @@ if(verbose):
 cwd = os.getcwd()
 
 def runTest(folderName):
+    # example: run the line: python3 initiate.py "test 3"/config.txt in a new terminal
     config = subprocess.Popen(shlex.split('python3 initiate.py "'+folderName+'"/config.txt'), cwd=cwd)
-    config.communicate()
+    config.communicate() # waits for the command to finish running
+    # example: run the line: python3 action.py "test 3"/action.txt in a new terminal
     actions = subprocess.Popen(shlex.split('python3 action.py "'+folderName+'"/action.txt'), stdout=subprocess.PIPE, cwd=cwd)
+    # gets the output of the command and turns it from bytes to string
     out = actions.communicate()[0].decode('utf-8')
-    expectedOut = open(''+folderName+'/expectedOut.txt').read()
+    # checks the relevant expected output from the folder's expectedOut.txt file
+    expectedOut = open(folderName+'/expectedOut.txt').read()
     if(out != expectedOut):
+        # printn a wrong answer message if needed
         print("Test "+folderName[5:]+" returned unexpected output")
+        # if the user added the tag -v in the call to this it will print
+        # the difference between the output and the expected output
         if(verbose):
             print("Output was: "+out)
             print("----------\nDifference is: ")
