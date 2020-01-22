@@ -4,6 +4,7 @@ from Repository import *
 
 
 def print_employees_report():
+    print()  # blank line between tables and reports
     print("Employees report")
     all_data = repo.fetch_employees_report()
     for one in all_data:
@@ -14,6 +15,7 @@ def print_activities_report():
     all_data = repo.fetch_activities_report()
     if len(all_data) == 0:
         return
+    print()  # blank line between reports
     print("Activities")
     for one in all_data:
         print(one)
@@ -37,9 +39,7 @@ def main():
     print_table(repo.products)
     print("Suppliers")
     print_table(repo.suppliers)
-    print()  # blank line between tables and reports
     print_employees_report()
-    print()  # blank line between reports
     print_activities_report()
 
 
