@@ -11,8 +11,10 @@ def print_employees_report():
 
 
 def print_activities_report():
-    print("Activities")
     all_data = repo.fetch_activities_report()
+    if len(all_data) == 0:
+        return
+    print("Activities")
     for one in all_data:
         print(one)
 
