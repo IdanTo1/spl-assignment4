@@ -1,3 +1,6 @@
+from DTO import *
+
+
 class _Employees:
     def __init__(self, conn):
         self._conn = conn
@@ -9,10 +12,9 @@ class _Employees:
             INSERT INTO Employees (id, name, salary, coffee_stand) VALUES (?, ?, ?, ?)
         """, [employee.id, employee.name, employee.salary, employee.coffee_stand])
 
-    def fetch_table(self):
+    def find_all(self):
         self._cursor.execute("SELECT * FROM Employees ORDER BY Employees.id")
-        all_data = self._cursor.fetchall()
-        return all_data
+        return [Employee(*row) for row in self._cursor.fetchall()]
 
 
 class _Suppliers:
@@ -25,10 +27,9 @@ class _Suppliers:
             INSERT INTO Suppliers (id, name, contact_information) VALUES (?, ?, ?)
         """, [supplier.id, supplier.name, supplier.contact_information])
 
-    def fetch_table(self):
+    def find_all(self):
         self._cursor.execute("SELECT * FROM Suppliers ORDER BY Suppliers.id")
-        all_data = self._cursor.fetchall()
-        return all_data
+        return [Supplier(*row) for row in self._cursor.fetchall()]
 
 
 class _Products:
@@ -39,22 +40,22 @@ class _Products:
     def insert(self, product):
         self._cursor.execute("""
             INSERT INTO Products (id, description, price, quantity) VALUES (?, ?, ?, ?)
-        """, [product.product_id, product.description, product.price, product.quantity])
+        """, [product.id, product.description, product.price, product.quantity])
 
-    def fetch_table(self):
+    def find_all(self):
         self._cursor.execute("SELECT * FROM Products ORDER BY Products.id")
-        all_data = self._cursor.fetchall()
-        return all_data
+        return [Product(*row) for row in self._cursor.fetchall()]
 
-    def update(self, product_id, quantity):
+    def update(self, product):
         self._cursor.execute("""UPDATE Products SET quantity = quantity + ?
-        WHERE id = ?""", [quantity, product_id])
+        WHERE id = ?""", [product.quantity, product.id])
 
-    def get_quantity(self, product_id):
-        self._cursor.execute("""SELECT quantity FROM Products
+    def find(self, product_id):
+        self._cursor.execute("""SELECT * FROM Products
                     WHERE id = ?
                     """, [product_id])
-        return int(self._cursor.fetchone()[0])
+        data = self._cursor.fetchone()
+        return Product(*data)
 
 
 class _CoffeeStands:
@@ -67,10 +68,9 @@ class _CoffeeStands:
             INSERT INTO Coffee_stands (id, location, number_of_employees) VALUES (?, ?, ?)
         """, [coffee_stand.id, coffee_stand.location, coffee_stand.number_of_employees])
 
-    def fetch_table(self):
+    def find_all(self):
         self._cursor.execute("SELECT * FROM Coffee_stands ORDER BY Coffee_stands.id")
-        all_data = self._cursor.fetchall()
-        return all_data
+        return [CoffeeStand(*row) for row in self._cursor.fetchall()]
 
 
 class _Activities:
@@ -83,7 +83,6 @@ class _Activities:
             INSERT INTO Activities (product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
         """, [activity.product_id, activity.quantity, activity.activator_id, activity.date])
 
-    def fetch_table(self):
+    def find_all(self):
         self._cursor.execute("SELECT * FROM Activities ORDER BY Activities.date")
-        all_data = self._cursor.fetchall()
-        return all_data
+        return [Activity(*row) for row in self._cursor.fetchall()]

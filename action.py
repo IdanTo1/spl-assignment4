@@ -11,11 +11,13 @@ def main(actions_file):
             args = line.split(',')
             args = [arg.strip() for arg in args]
             activity = DTO.Activity(*args)
-            curr_quantity = repo.products.get_quantity(activity.product_id)
+            product = repo.products.find(activity.product_id)
+            curr_quantity = int(product.quantity)
             new_quantity = curr_quantity + int(activity.quantity)
             if new_quantity >= 0:
                 repo.activities.insert(activity)
-                repo.products.update(activity.product_id, activity.quantity)
+                product.quantity = new_quantity
+                repo.products.update(product)
     printdb.main()
 
 

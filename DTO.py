@@ -5,6 +5,9 @@ class Employee:
         self.salary = salary
         self.coffee_stand = coffee_stand
 
+    def __str__(self):
+        return "(%d, '%s', %.1f, %d)" % (self.id, self.name, self.salary, self.coffee_stand)
+
 
 class Supplier:
     def __init__(self, supplier_id, name, contact_information):
@@ -12,13 +15,16 @@ class Supplier:
         self.name = name
         self.contact_information = contact_information
 
+    def __str__(self):
+        return "(%d, '%s', '%s')" % (self.id, self.name, self.contact_information)
+
 
 class Product:
-    def __init__(self, product_id, description, price):
-        self.product_id = product_id
+    def __init__(self, product_id, description, price, quantity):
+        self.id = product_id
         self.description = description
         self.price = price
-        self.quantity = 0
+        self.quantity = quantity
 
 
 class CoffeeStand:

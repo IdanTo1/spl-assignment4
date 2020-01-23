@@ -59,7 +59,7 @@ class _Repository:
                 supplier = Supplier(*args)
                 self.suppliers.insert(supplier)
             elif table_type == "P":
-                product = Product(*args)
+                product = Product(*args, 0)  # 0 for initial quantity
                 self.products.insert(product)
             else:  # table_type == "C", valid file assumed, activity is not initialized
                 coffee_stand = CoffeeStand(*args)
